@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
       include: [{ model: Product }]
 
-    }).then((categoryData) => {
+    }).then((tagData) => {
       res.status(200).json(tagData);
     });
   } catch (err) {
@@ -23,16 +23,18 @@ router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   try {
-    Product.findByPk(req.params.id, {
+    Tag.findByPk(req.params.id, {
 
       include: [{ model: Product }]
-    }).then((categoryData) => {
-      res.status(200).json(tagData);
-      if (!productData) {
+    }).then((tagData) => {
+
+      if (!tagData) {
         res.status(404).json({ message: 'No tag with that id!' });
         return;
       }
-      res.status(404).json(tagData);
+      else {
+        res.status(200).json(tagData);
+      }
     });
   } catch (err) {
     res.status(500).json(err);
@@ -72,7 +74,7 @@ router.put('/:id', (req, res) => {
         where: {
           id: req.body.id,
         },
-      }).then((categoryData) => {
+      }).then((tagData) => {
         if (!tagData[0]) {
           res.status(404).json({ message: 'No tag with that id!' });
           return;
@@ -91,7 +93,7 @@ router.delete('/:id', (req, res) => {
       where: {
         id: req.params.id
       }
-    }).then((categoryData) => {
+    }).then((tagData) => {
 
       if (!catagoryData) {
         res.status(404).json({ message: 'No catagonry with that id!' });

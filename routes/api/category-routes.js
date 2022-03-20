@@ -8,11 +8,12 @@ router.get('/', (req, res) => {
   try {
     Category.findAll().then((categoryData) => {
       res.status(200).json(categoryData);
-
+      console.log(categoryData)
     });
 
   } catch (err) {
     res.status(500).json(err);
+    console.log(err)
   }
 });
 
@@ -21,14 +22,16 @@ router.get('/:id', (req, res) => {
   try {
     Category.findByPk(req.params.id, {
 
-      include: [{ model: Product, through: ProductTag }]
+      include: [{ model: Product }]
     }).then((categoryData) => {
-      res.status(200).json(categoryData);
+
       if (!categoryData) {
         res.status(404).json({ message: 'No category with that id!' });
         return;
       }
-      res.status(404).json(categoryData);
+      else {
+        res.status(200).json(categoryData);
+      }
     });
   } catch (err) {
     res.status(500).json(err);

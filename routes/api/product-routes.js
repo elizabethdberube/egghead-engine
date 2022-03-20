@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     Product.findAll(req.params.id, {
 
       include: [{ model: Category }, { model: Tag }]
-    }).then((categoryData) => {
+    }).then((productData) => {
 
       res.status(200).json(productData);
     });
@@ -29,12 +29,14 @@ router.get('/:id', (req, res) => {
 
       include: [{ model: Category }, { model: Tag }]
     }).then((productData) => {
-      res.status(200).json(productData);
+
       if (!productData) {
         res.status(404).json({ message: 'No product with that id!' });
         return;
       }
-      res.status(404).json(productData);
+      else {
+        res.status(200).json(productData);
+      }
     });
   } catch (err) {
     res.status(500).json(err);

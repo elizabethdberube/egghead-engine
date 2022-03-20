@@ -40,9 +40,8 @@ Product.init(
       type: DataTypes.INTEGER,
       references: {
         model: 'Category',
-        key: 'id'
-        //not sure if I need      
-        //unique: false
+        key: 'id',
+        unique: true
       }
     }
   },
@@ -51,7 +50,7 @@ Product.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'product',
+    //   modelName: 'product',
   }
 );
 

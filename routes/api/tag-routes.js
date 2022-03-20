@@ -72,14 +72,16 @@ router.put('/:id', (req, res) => {
     Tag.update(req.body,
       {
         where: {
-          id: req.body.id,
+          id: req.params.id,
         },
       }).then((tagData) => {
-        if (!tagData[0]) {
+        if (!tagData) {
           res.status(404).json({ message: 'No tag with that id!' });
           return;
         }
-        res.status(200).json(tagData);
+        else {
+          res.status(200).json(tagData);
+        }
       })
   } catch (err) {
     res.status(500).json(err);

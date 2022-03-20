@@ -51,17 +51,21 @@ router.post('/', (req, res) => {
 // update by id
 router.put('/:id', (req, res) => {
   try {
+
     Category.update(req.body,
       {
         where: {
-          id: req.body.id,
+          id: req.params.id,
         },
+
       }).then((categoryData) => {
-        if (!categoryData[0]) {
+        if (!categoryData) {
           res.status(404).json({ message: 'No catagory with that id!' });
           return;
         }
-        res.status(200).json(categoryData);
+        else {
+          res.status(200).json(categoryData);
+        }
       });
   } catch (err) {
     res.status(500).json(err);

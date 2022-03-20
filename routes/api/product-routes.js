@@ -8,12 +8,13 @@ router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findAll(req.params.id, {
+    Product.findAll(req.params.id, {
 
       include: [{ model: Category }, { model: Tag }]
-    });
+    }).then((categoryData) => {
 
-    res.status(200).json(productData);
+      res.status(200).json(productData);
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -24,16 +25,17 @@ router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findByPk(req.params.id, {
+    Product.findByPk(req.params.id, {
 
       include: [{ model: Category }, { model: Tag }]
+    }).then((productData) => {
+      res.status(200).json(productData);
+      if (!productData) {
+        res.status(404).json({ message: 'No product with that id!' });
+        return;
+      }
+      res.status(404).json(productData);
     });
-    res.status(200).json(productData);
-    if (!productData) {
-      res.status(404).json({ message: 'No product with that id!' });
-      return;
-    }
-    res.status(404).json(productData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -116,17 +118,18 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
   try {
-    const productData = await Category.destroy({
+    Category.destroy({
       where: {
         id: req.params.id
       }
-    });
+    }).then((productData) => {
 
-    if (!productData) {
-      res.status(404).json({ message: 'No catagonry with that id!' });
-      return;
-    }
-    res.status(200).json(productData);
+      if (!productData) {
+        res.status(404).json({ message: 'No catagonry with that id!' });
+        return;
+      }
+      res.status(200).json(productData);
+    });
   } catch (err) {
     res.status(500).json(err);
   }

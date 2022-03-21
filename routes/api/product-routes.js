@@ -80,7 +80,7 @@ router.put('/:id', (req, res) => {
 
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
 
-      const newProductTags = req.body.tagIds
+      const newProductTags = (req.body.tagIds || [])
         .filter((tag_id) => !productTagIds.includes(tag_id))
         .map((tag_id) => {
           return {
@@ -120,7 +120,7 @@ router.delete('/:id', (req, res) => {
         res.status(404).json({ message: 'There was a problem deleting your item' });
         return;
       }
-      res.status(200).json(productData);
+      res.status(200).json({ message: 'Product had been deleted' });
     });
   } catch (err) {
     res.status(500).json(err);

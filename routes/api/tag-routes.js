@@ -80,7 +80,7 @@ router.put('/:id', (req, res) => {
           return;
         }
         else {
-          res.status(200).json(tagData);
+          res.status(200).json({ message: 'Tag has been updated!' });
         }
       })
   } catch (err) {
@@ -102,7 +102,7 @@ router.delete('/:id', (req, res) => {
         res.status(404).json({ message: 'There was a problem deleting your item' });
         return;
       }
-      res.status(200).json(tagData);
+      res.status(200).json({ message: 'Tag has been deleted' });
     });
   } catch (err) {
     res.status(500).json(err);

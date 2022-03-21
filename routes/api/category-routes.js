@@ -40,10 +40,13 @@ router.get('/:id', (req, res) => {
 
 // create a new category 
 router.post('/', (req, res) => {
+  Product.create(req.body)
+
   try {
     Category.create(req.body);
-    res.status(200).json(categoryData);
+    res.status(200).json({ message: 'Category has been created!' });
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -64,7 +67,8 @@ router.put('/:id', (req, res) => {
           return;
         }
         else {
-          res.status(200).json(categoryData);
+          res.status(200).json({ message: 'Category has been updated!' });
+
         }
       });
   } catch (err) {
@@ -85,7 +89,7 @@ router.delete('/:id', (req, res) => {
         res.status(404).json({ message: 'There was a problem deleting your item' });
         return;
       }
-      res.status(200).json(categoryData);
+      res.status(200).json({ message: 'Item has been deleted!' });
     });
   } catch (err) {
     res.status(500).json(err);

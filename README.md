@@ -44,7 +44,7 @@ liz@durableprogramming.com
 ## Links
 
 
-[GitHub Repo](git@github.com:elizabethdberube/egghead-engine.git) 
+[GitHub Repo](https://github.com/elizabethdberube/egghead-engine) 
 
 [Walkthrough Video](https://drive.google.com/file/d/1l1zZpQ99ezGIWS6IskYy2HbAu0jou6j6/view) 
 

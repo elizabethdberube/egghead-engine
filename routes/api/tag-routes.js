@@ -97,11 +97,11 @@ router.delete('/:id', (req, res) => {
       }
     }).then((tagData) => {
 
-      if (!catagoryData) {
-        res.status(404).json({ message: 'No catagonry with that id!' });
+      if (!tagData) {
+        res.status(404).json({ message: 'No category with that id!' });
         return;
       }
-      res.status(200).json(catagoryData);
+      res.status(200).json(tagData);
     });
   } catch (err) {
     res.status(500).json(err);

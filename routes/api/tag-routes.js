@@ -1,11 +1,10 @@
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
 
-// The `/api/tags` endpoint
 
+// get all tags
 router.get('/', (req, res) => {
-  // find all tags
-  // be sure to include its associated Product data
+
   try {
     Tag.findAll(req.params.id, {
 
@@ -19,9 +18,9 @@ router.get('/', (req, res) => {
   }
 });
 
+// get tag by id
 router.get('/:id', (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
+
   try {
     Tag.findByPk(req.params.id, {
 
@@ -42,11 +41,12 @@ router.get('/:id', (req, res) => {
 
 });
 
+// create a new tag
 router.post('/', (req, res) => {
-  // create a new tag
+
   Tag.create(req.body)
     .then((tagIds) => {
-      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
+
       if (req.body.tagIds) {
         const TagIdArr = req.body.tagIds.map((tag_id) => {
           return {
@@ -56,7 +56,6 @@ router.post('/', (req, res) => {
         });
         return ProductTag.bulkCreate(TagIdArr);
       }
-      // if no product tags, just respond
       res.status(200).json(tagIds);
     })
     .then((tagIds) => res.status(200).json(tagIds))
@@ -66,8 +65,9 @@ router.post('/', (req, res) => {
     });
 });
 
+// update by id
 router.put('/:id', (req, res) => {
-  // update a tag's name by its `id` value
+
   try {
     Tag.update(req.body,
       {
@@ -88,17 +88,18 @@ router.put('/:id', (req, res) => {
   }
 });
 
+// delete a tag by id
 router.delete('/:id', (req, res) => {
-  // delete on tag by its `id` value
+
   try {
-    Category.destroy({
+    Tag.destroy({
       where: {
         id: req.params.id
       }
     }).then((tagData) => {
 
       if (!tagData) {
-        res.status(404).json({ message: 'No category with that id!' });
+        res.status(404).json({ message: 'There was a problem deleting your item' });
         return;
       }
       res.status(200).json(tagData);

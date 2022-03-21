@@ -2,8 +2,10 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection');
 
+
 class ProductTag extends Model { }
 
+// fields and rules for ProductTag model
 ProductTag.init(
   {
     id: {
@@ -17,8 +19,7 @@ ProductTag.init(
       references: {
         model: 'Product',
         key: 'id'
-        //not sure if I need      
-        //unique: false
+
       }
     },
     tag_id: {
@@ -26,8 +27,7 @@ ProductTag.init(
       references: {
         model: 'Tag',
         key: 'id'
-        //not sure if I need      
-        //unique: false
+
       }
     }
   },
